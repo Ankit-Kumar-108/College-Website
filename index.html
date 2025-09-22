@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radharaman Engineering College - Engineering the Future</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Main Website Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #373851;
+            overflow-x: hidden;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .font-lato {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .animated-gradient-bg {
+            background: linear-gradient(270deg, #e8effc, #f3f4f6, #f3f4f6, #e8effc);
+            background-size: 800% 800%;
+            animation: gradientAnimation 30s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #337df4;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .feature-card,
+        .department-card,
+        .club-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .feature-card:hover,
+        .department-card:hover,
+        .club-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+
+        .department-card {
+            cursor: pointer;
+        }
+
+        .icon-placeholder {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-story-card {
+            background: linear-gradient(to top, rgba(7, 7, 7, 0.9), rgba(0, 0, 0, 0.1));
+        }
+
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* --- POPUP STYLES (FROM popup.css) --- */
+        #popup-container {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.popup-open {
+            overflow: hidden;
+            /* Prevents scrolling when popup is open */
+        }
+
+        @keyframes popup-animation {
+            0% {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes swing {
+            0% {
+                transform: rotate(20deg);
+            }
+
+            50% {
+                transform: rotate(-15deg);
+            }
+
+            100% {
+                transform: rotate(20deg);
+            }
+        }
+
+        .popup-animated {
+            animation: popup-animation 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .gear-animated {
+            animation: spin 8s linear infinite;
+        }
+
+        .hammer-animated {
+            transform-origin: bottom right;
+            animation: swing 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="font-lato">
+
+    <div id="app-container" class="relative">
+
+        <header id="navbar"
+            class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="images\logo.png" alt="logo" class="w-20 h-50 object-cover rounded"
+                        onerror="this.src='https://placehold.co/80x50/cccccc/ffffff?text=Logo'; this.onerror=null;">
+                    <div class="leading-tight">
+                        <div class="text-xl font-bold font-poppins text-[#2c3e50]">Radharaman Engineering College</div>
+                    </div>
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="#Admission"
+                            class="text-gray-700 hover:text-[#2c3e50] font-semibold nav-link">Admission</a>
+                        <a href="#departments"
+                            class="text-gray-700 hover:text-[#2c3e50] font-semibold nav-link">Departments</a>
+                        <a href="#campus-life" class="text-gray-700 hover:text-[#2c3e50] font-semibold nav-link">Campus
+                            Life</a>
+                        <a href="#placements"
+                            class="text-gray-700 hover:text-[#2c3e50] font-semibold nav-link">Placements</a>
+                        <a href="#events" class="text-gray-700 hover:text-[#2c3e50] font-semibold nav-link">Events</a>
+                    </nav>
+                    <div class="flex items-center">
+                        <a href="#"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full transition duration-300">Login</a>
+                        <button id="mobile-menu-button" class="md:hidden ml-4 p-2 text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
+                    <a href="#Admission" class="block py-3 px-6 text-sm hover:bg-gray-200 text-gray-800">Admission</a>
+                    <a href="#departments"
+                        class="block py-3 px-6 text-sm hover:bg-gray-200 text-gray-800">Departments</a>
+                    <a href="#campus-life" class="block py-3 px-6 text-sm hover:bg-gray-200 text-gray-800">Campus
+                        Life</a>
+                    <a href="#placements" class="block py-3 px-6 text-sm hover:bg-gray-200 text-gray-800">Placements</a>
+                    <a href="#events" class="block py-3 px-6 text-sm hover:bg-gray-200 text-gray-800">Contact Us</a>
+                </div>
+        </header>
+
+        <main>
+            <section class="relative h-screen flex items-center justify-center text-white pt-20 overflow-hidden">
+                <div id="hero-slideshow" class="absolute inset-0 w-full h-full z-0">
+                    <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100"
+                        style="background-image: url('https://placehold.co/1920x1080/2c3e50/FFFFFF?text=Innovation+Starts+Here');">
+                    </div>
+                    <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0"
+                        style="background-image: url('https://placehold.co/1920x1080/52799e/FFFFFF?text=Advanced+Robotics+Lab');">
+                    </div>
+                    <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0"
+                        style="background-image: url('https://placehold.co/1920x1080/3b82f6/FFFFFF?text=Student+Collaboration');">
+                    </div>
+                </div>
+                <div class="absolute inset-0 bg-black/60 z-10"></div>
+                <div class="relative z-20 text-center px-4">
+                    <h1
+                        class="text-4xl md:text-6xl xl:text-7xl font-extrabold font-poppins leading-tight mb-4 animate-on-scroll text-slate-100">
+                        Engineering the Future</h1>
+                    <p class="text-lg md:text-xl xl:text-2xl max-w-3xl mx-auto mb-8 animate-on-scroll text-slate-300"
+                        style="transition-delay: 200ms;">Building a foundation of technical excellence and innovative
+                        thinking to solve tomorrow's challenges.</p>
+                    <div class="space-x-4 animate-on-scroll" style="transition-delay: 400ms;">
+                        <a href="#departments"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Our
+                            Programs</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="why-rec" class="py-20 xl:py-28 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Why Choose Radharaman Engineering?</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">Discover the advantages that blend
+                            academic rigor with practical experience to prepare you for a successful engineering career.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="feature-card bg-slate-50 p-8 rounded-lg animate-on-scroll">
+                            <div class="icon-placeholder text-blue-600 mb-4">🏆</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Academic Excellence</h3>
+                            <p class="text-gray-600">Our faculty comprises leading experts in their fields, dedicated to
+                                providing a world-class education and mentorship.</p>
+                        </div>
+                        <div class="feature-card bg-slate-50 p-8 rounded-lg animate-on-scroll"
+                            style="transition-delay: 150ms;">
+                            <div class="icon-placeholder text-blue-600 mb-4">🔬</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Industry-Focused Curriculum
+                            </h3>
+                            <p class="text-gray-600">Our curriculum is updated to meet the latest industry standards,
+                                ensuring our students are job-ready from day one.</p>
+                        </div>
+                        <div class="feature-card bg-slate-50 p-8 rounded-lg animate-on-scroll"
+                            style="transition-delay: 300ms;">
+                            <div class="icon-placeholder text-blue-600 mb-4">💡</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Vibrant Campus Life</h3>
+                            <p class="text-gray-600">Experience a dynamic campus environment with numerous clubs,
+                                events, and opportunities for personal growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="leadership" class="py-20 xl:py-28 animated-gradient-bg">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Meet Our Leadership</h2>
+                    </div>
+                    <div
+                        class="flex flex-col md:flex-row items-center gap-12 bg-white/70 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+                        <div class="md:w-1/3 animate-on-scroll">
+                            <img src="images/dr_anurag-jain.jpg" alt="Director of REC"
+                                class="rounded-lg shadow-2xl w-full mx-auto max-w-xs"
+                                onerror="this.src='https://placehold.co/320x400/cccccc/ffffff?text=Director'; this.onerror=null;">
+                        </div>
+                        <div class="md:w-2/3 animate-on-scroll" style="transition-delay: 200ms;">
+                            <h3 class="text-2xl font-bold text-blue-600 font-poppins">Message from the Director</h3>
+                            <h4 class="text-3xl font-bold text-[#2c3e50] font-poppins mb-4">Dr. Anurag Jain</h4>
+                            <p class="text-gray-600 mb-4 leading-relaxed">At Radharaman Engineering College, we are
+                                dedicated to nurturing the next generation of engineers and innovators. Our focus is on
+                                providing a holistic education that combines theoretical knowledge with hands-on
+                                experience, preparing our students to excel in a competitive global landscape.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="departments" class="py-20 xl:py-28 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Explore Our Departments</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">Click on a department to discover labs,
+                            projects, and program highlights.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="department-card bg-slate-50 rounded-lg p-8 text-center shadow-lg animate-on-scroll"
+                            data-department="cs">
+                            <div class="icon-placeholder text-[#2c3e50] mb-4">💻</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Computer Science</h3>
+                        </div>
+                        <div class="department-card bg-slate-50 rounded-lg p-8 text-center shadow-lg animate-on-scroll"
+                            data-department="me" style="transition-delay: 100ms;">
+                            <div class="icon-placeholder text-[#2c3e50] mb-4">🔩</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Mechanical</h3>
+                        </div>
+                        <div class="department-card bg-slate-50 rounded-lg p-8 text-center shadow-lg animate-on-scroll"
+                            data-department="ec" style="transition-delay: 200ms;">
+                            <div class="icon-placeholder text-[#2c3e50] mb-4">⚡</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Electronics & Comm.</h3>
+                        </div>
+                        <div class="department-card bg-slate-50 rounded-lg p-8 text-center shadow-lg animate-on-scroll"
+                            data-department="ce" style="transition-delay: 300ms;">
+                            <div class="icon-placeholder text-[#2c3e50] mb-4">🏗️</div>
+                            <h3 class="text-xl font-bold font-poppins text-[#2c3e50] mb-2">Civil Engineering</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="campus-life" class="py-20 xl:py-28 animated-gradient-bg">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Life Beyond the Classroom</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">College is about community, growth, and
+                            experiences. Discover the vibrant life at REC.</p>
+                    </div>
+                    <div class="mb-16">
+                        <h3
+                            class="text-2xl md:text-3xl font-bold text-center text-[#2c3e50] font-poppins mb-8 animate-on-scroll">
+                            Student Clubs & Organizations</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                            <div class="club-card bg-white/70 p-6 text-center rounded-lg shadow-md animate-on-scroll">
+                                <p class="text-3xl mb-2">🤖</p>
+                                <p class="font-semibold text-gray-700">Robotics Club</p>
+                            </div>
+                            <div class="club-card bg-white/70 p-6 text-center rounded-lg shadow-md animate-on-scroll"
+                                style="transition-delay: 100ms;">
+                                <p class="text-3xl mb-2">🎭</p>
+                                <p class="font-semibold text-gray-700">Cultural Committee</p>
+                            </div>
+                            <div class="club-card bg-white/70 p-6 text-center rounded-lg shadow-md animate-on-scroll"
+                                style="transition-delay: 200ms;">
+                                <p class="text-3xl mb-2">🏆</p>
+                                <p class="font-semibold text-gray-700">Sports Club</p>
+                            </div>
+                            <div class="club-card bg-white/70 p-6 text-center rounded-lg shadow-md animate-on-scroll"
+                                style="transition-delay: 300ms;">
+                                <p class="text-3xl mb-2">💡</p>
+                                <p class="font-semibold text-gray-700">Training And Placement Cell</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-2xl md:text-3xl font-bold text-center text-[#2c3e50] font-poppins mb-8 animate-on-scroll">
+                            Campus Facilities</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <div
+                                class="h-80 rounded-lg overflow-hidden shadow-lg animate-on-scroll transition-transform duration-300 hover:scale-105">
+                                <img src="images/10.jpg" alt="Central Library" class="w-full h-full object-cover"
+                                    onerror="this.src='https://placehold.co/400x320/cccccc/ffffff?text=Library'; this.onerror=null;">
+                            </div>
+                            <div class="h-80 rounded-lg overflow-hidden shadow-lg animate-on-scroll transition-transform duration-300 hover:scale-105"
+                                style="transition-delay: 100ms;">
+                                <img src="images/6.jpg" alt="Green Campus" class="w-full h-full object-cover"
+                                    onerror="this.src='https://placehold.co/400x320/cccccc/ffffff?text=Campus'; this.onerror=null;">
+                            </div>
+                            <div class="h-80 rounded-lg overflow-hidden shadow-lg animate-on-scroll transition-transform duration-300 hover:scale-105"
+                                style="transition-delay: 200ms;">
+                                <img src="images/7.jpg" alt="Canteen" class="w-full h-full object-cover"
+                                    onerror="this.src='https://placehold.co/400x320/cccccc/ffffff?text=Canteen'; this.onerror=null;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="placements" class="py-20 xl:py-28 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Placement Highlights</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">We are proud to have our students placed
+                            in some of the world's leading companies.</p>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-lg animate-on-scroll">
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=Google" alt="Google Logo"
+                                class="recruiter-logo mx-auto">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=Microsoft" alt="Microsoft Logo"
+                                class="recruiter-logo mx-auto">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=Amazon" alt="Amazon Logo"
+                                class="recruiter-logo mx-auto">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=Infosys" alt="Infosys Logo"
+                                class="recruiter-logo mx-auto">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=TCS" alt="TCS Logo"
+                                class="recruiter-logo mx-auto">
+                            <img src="https://placehold.co/150x80/cccccc/ffffff?text=Wipro" alt="Wipro Logo"
+                                class="recruiter-logo mx-auto">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" class="py-20 xl:py-28 animated-gradient-bg">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            News & Events</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">Stay updated with the latest happenings
+                            at REC.</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white/70 backdrop-blur-sm rounded-lg shadow-xl p-8 animate-on-scroll">
+                            <div
+                                class="flex flex-col sm:flex-row items-center gap-6 mb-6 pb-6 border-b border-gray-200">
+                                <img src="https://placehold.co/200x130/52799e/FFFFFF?text=AI+Workshop"
+                                    class="w-full sm:w-40 h-auto rounded-lg shadow-md shrink-0" alt="AI Workshop">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">October 05, 2025</p>
+                                    <h4 class="font-bold text-lg font-poppins text-gray-800">Workshop on Artificial
+                                        Intelligence</h4>
+                                    <p class="text-gray-600 text-sm">A hands-on workshop covering the fundamentals of AI
+                                        and Machine Learning. Open to all departments.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-6">
+                                <img src="https://placehold.co/200x130/3b82f6/FFFFFF?text=Guest+Lecture"
+                                    class="w-full sm:w-40 h-auto rounded-lg shadow-md shrink-0" alt="Guest Lecture">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">September 28, 2025</p>
+                                    <h4 class="font-bold text-lg font-poppins text-gray-800">Guest Lecture on Future of
+                                        EVs</h4>
+                                    <p class="text-gray-600 text-sm">Industry expert from Tesla will be sharing insights
+                                        on the electric vehicle revolution.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="success" class="py-20 xl:py-28 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12 animate-on-scroll">
+                        <h2
+                            class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-2">
+                            Alumni Voices</h2>
+                        <p class="text-center text-gray-600 max-w-2xl mx-auto">Our alumni are making an impact at
+                            leading companies worldwide.</p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="relative rounded-lg overflow-hidden shadow-2xl animate-on-scroll h-96">
+                            <img src="https://placehold.co/600x800/2c3e50/FFFFFF?text=Aarav+Sharma"
+                                class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-6 text-white success-story-card">
+                                <h3 class="font-bold text-2xl font-poppins">Aarav Sharma</h3>
+                                <p class="text-sm">Placed at Google</p>
+                                <p class="mt-2 text-gray-200 text-sm">"The project-based learning at REC gave me the
+                                    confidence to tackle real-world problems."</p>
+                            </div>
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden shadow-2xl animate-on-scroll h-96"
+                            style="transition-delay: 150ms;">
+                            <img src="https://placehold.co/600x800/52799e/FFFFFF?text=Priya+Verma"
+                                class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-6 text-white success-story-card">
+                                <h3 class="font-bold text-2xl font-poppins">Priya Verma</h3>
+                                <p class="text-sm">Research Scholar at ISRO</p>
+                                <p class="mt-2 text-gray-200 text-sm">"The faculty's guidance in research was
+                                    instrumental in my journey to ISRO."</p>
+                            </div>
+                        </div>
+                        <div class="relative rounded-lg overflow-hidden shadow-2xl animate-on-scroll h-96"
+                            style="transition-delay: 300ms;">
+                            <img src="https://placehold.co/600x800/3b82f6/FFFFFF?text=Vikram+Singh"
+                                class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-6 text-white success-story-card">
+                                <h3 class="font-bold text-2xl font-poppins">Vikram Singh</h3>
+                                <p class="text-sm">Founder, TechStart Inc.</p>
+                                <p class="mt-2 text-gray-200 text-sm">"REC's entrepreneurship cell provided the perfect
+                                    launchpad for my startup dream."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cta" class="py-20 xl:py-28 animated-gradient-bg">
+                <div class="container mx-auto px-6 text-center animate-on-scroll">
+                    <h2 class="text-3xl md:text-4xl xl:text-5xl font-bold text-center text-[#2c3e50] font-poppins mb-4">
+                        Ready to Start Your Engineering Journey?</h2>
+                    <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Join a community of innovators and
+                        leaders. Apply now to become a part of Radharaman Engineering College.</p>
+                    <a href="#"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Apply
+                        for Admission</a>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contact" class="bg-[#2c3e50] text-slate-300">
+            <div class="container mx-auto px-6 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold font-poppins text-white mb-4">REC Bhopal</h3>
+                        <p>Bhopal, Madhya Pradesh, India</p>
+                        <p>Email: admissions@recbhopal.edu.in</p>
+                        <p>Phone: +91 98765 43210</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-poppins text-white mb-4">Quick Links</h3>
+                        <ul>
+                            <li class="mb-2"><a href="#leadership" class="hover:text-blue-400 transition">Leadership</a>
+                            </li>
+                            <li class="mb-2"><a href="#departments"
+                                    class="hover:text-blue-400 transition">Departments</a></li>
+                            <li class="mb-2"><a href="#placements" class="hover:text-blue-400 transition">Placements</a>
+                            </li>
+                            <li class="mb-2"><a href="https://www.rgibhopal.ac.in"
+                                    class="hover:text-blue-400 transition">RGI Group</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-poppins text-white mb-4">Admissions</h3>
+                        <ul>
+                            <li class="mb-2"><a href="#" class="hover:text-blue-400 transition">Admission Process</a>
+                            </li>
+                            <li class="mb-2"><a href="#" class="hover:text-blue-400 transition">Fee Structure</a></li>
+                            <li class="mb-2"><a href="#" class="hover:text-blue-400 transition">Download Brochure</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-poppins text-white mb-4">Follow Us</h3>
+                        <div class="flex space-x-4 text-2xl">
+                            <a href="#" class="hover:text-blue-400 transition"> F </a>
+                            <a href="#" class="hover:text-blue-400 transition"> T </a>
+                            <a href="#" class="hover:text-blue-400 transition"> I </a>
+                            <a href="#" class="hover:text-blue-400 transition"> L </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 border-t border-slate-700 pt-6 text-center text-slate-500">
+                    <p>&copy; 2025 Radharaman Engineering College. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Department Details Modal -->
+    <div id="department-modal"
+        class="modal-overlay fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-[60] hidden opacity-0">
+        <div
+            class="modal-content bg-white w-full max-w-4xl max-h-[90vh] rounded-lg shadow-2xl overflow-y-auto transform scale-95 opacity-0">
+            <div
+                class="sticky top-0 bg-white/80 backdrop-blur-sm p-4 flex justify-between items-center border-b border-gray-200 z-10">
+                <h3 id="modal-title" class="text-2xl font-bold font-poppins text-[#2c3e50]">Department Details</h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="modal-body" class="p-8">
+                <!-- Content will be injected by JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =================================================================== -->
+    <!-- == POPUP'S HTML STRUCTURE == -->
+    <!-- =================================================================== -->
+    <div id="popup-overlay"
+        class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[70] transition-opacity duration-300">
+        <div id="popup-container"
+            class="popup-animated bg-white w-full max-w-md mx-auto rounded-2xl shadow-2xl overflow-hidden">
+            <div class="relative bg-blue-400 p-6">
+                <div class="absolute -top-4 -left-4 w-16 h-16 text-white opacity-20">
+                    <svg class="gear-animated" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.995s.145.755.438.995l1.003.827c.48.398.668 1.03.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.337 6.337 0 01-.22.127c-.331.183-.581.495-.645.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313-.686-.645-.87a6.337 6.337 0 01-.22-.127c-.324-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.995s-.145-.755-.437-.995l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.355.133.75.072 1.075-.124.072-.044.146-.087.22-.127.332-.183.582-.495.645-.87l.213-1.281z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <div class="relative flex items-center justify-center space-x-2">
+                    <div class="w-12 h-12 text-grey-800">
+                        <svg class="hammer-animated" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.528-1.032.388-2.357-.4-3.134l-2.4-2.4a2.121 2.121 0 00-3.134-.4z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 text-center font-poppins">Site Under Construction</h2>
+                </div>
+            </div>
+            <div class="p-8 text-center">
+                <p class="text-gray-700 text-lg mb-2">We're working hard to bring you something amazing!</p>
+                <p class="text-gray-500">Our new website is on its way. Please check back soon for the grand unveiling.
+                </p>
+            </div>
+            <div class="p-4 bg-gray-50 text-right">
+                <button id="close-popup"
+                    class="px-6 py-2 bg-blue-800 text-white font-semibold rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-50 transition-all duration-200">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Combined Website and Popup Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- CACHE ALL DOM ELEMENTS ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+            const navbar = document.getElementById('navbar');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const closePopupButton = document.getElementById('close-popup');
+
+            // --- POPUP LOGIC ---
+            function closePopup() {
+                if (popupOverlay) {
+                    popupOverlay.classList.add('opacity-0');
+                    popupOverlay.classList.remove('opacity-100');
+                }
+                if (document.body) {
+                    document.body.classList.remove('popup-open');
+                }
+                setTimeout(() => {
+                    if (popupOverlay) {
+                        popupOverlay.style.display = 'none';
+                    }
+                }, 300);
+            }
+
+            if (document.body) {
+                document.body.classList.add('popup-open');
+            }
+            if (closePopupButton) {
+                closePopupButton.addEventListener('click', closePopup);
+            }
+            if (popupOverlay) {
+                popupOverlay.addEventListener('click', function (event) {
+                    if (event.target === popupOverlay) {
+                        closePopup();
+                    }
+                });
+            }
+
+            // --- MOBILE MENU LOGIC ---
+            if (mobileMenuButton && mobileMenu) {
+                // 1. Open/Close menu with button
+                mobileMenuButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevents the document click listener from firing
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // 2. Close menu when a link is clicked
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+
+            // --- CLOSE MENU ON OUTSIDE CLICK ---
+            document.addEventListener('click', function (event) {
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    const isClickInsideMenu = mobileMenu.contains(event.target);
+                    const isClickOnButton = mobileMenuButton.contains(event.target);
+                    if (!isClickInsideMenu && !isClickOnButton) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+
+
+            // --- NAVBAR SCROLL EFFECT ---
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    navbar.classList.toggle('shadow-lg', window.scrollY > 50);
+                });
+            }
+
+            // --- SCROLL ANIMATIONS ---
+            const scrollElements = document.querySelectorAll('.animate-on-scroll');
+            if (scrollElements.length > 0) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                scrollElements.forEach(el => observer.observe(el));
+            }
+
+            // --- HERO SLIDESHOW ---
+            const heroSlides = document.querySelectorAll('#hero-slideshow > div');
+            if (heroSlides.length > 0) {
+                let currentSlide = 0;
+                setInterval(() => {
+                    heroSlides[currentSlide].style.opacity = '0';
+                    currentSlide = (currentSlide + 1) % heroSlides.length;
+                    heroSlides[currentSlide].style.opacity = '1';
+                }, 5000);
+            }
+
+            // --- DEPARTMENT MODAL LOGIC (RESTORED) ---
+            const departmentCards = document.querySelectorAll('.department-card');
+            const modal = document.getElementById('department-modal');
+
+            if (departmentCards.length > 0 && modal) {
+                const modalTitle = document.getElementById('modal-title');
+                const modalBody = document.getElementById('modal-body');
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+
+                const departmentData = {
+                    cs: {
+                        title: 'Computer Science & Engineering',
+                        content: `
+                            <p class="text-gray-600 mb-6">Our CSE department focuses on the frontiers of computing, from artificial intelligence to cybersecurity. We equip students with the skills to build the next generation of software and systems.</p>
+                            <h4 class="text-xl font-bold text-[#2c3e50] mb-4">Key Facilities & Labs</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2">
+                                <li>Advanced AI & Machine Learning Lab</li>
+                                <li>Dedicated Cybersecurity & Forensics Center</li>
+                                <li>High-Performance Computing Cluster</li>
+                                <li>Apple iOS Development Center</li>
+                            </ul>
+                            <h4 class="text-xl font-bold text-[#2c3e50] mb-4">Star Projects</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-slate-100 p-4 rounded-lg"><p class="text-gray-700 font-semibold">AI-Powered Drone for Agriculture</p></div>
+                                <div class="bg-slate-100 p-4 rounded-lg"><p class="text-gray-700 font-semibold">Blockchain-based Voting System</p></div>
+                            </div>
+                        `
+                    },
+                    me: {
+                        title: 'Mechanical Engineering',
+                        content: `
+                            <p class="text-gray-600 mb-6">The ME department is the cornerstone of modern industry, covering everything from automotive design to robotics and thermal engineering. Our students are hands-on builders and problem-solvers.</p>
+                            <h4 class="text-xl font-bold text-[#2c3e50] mb-4">Key Facilities & Labs</h4>
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2">
+                                <li>State-of-the-art CNC Machining Lab</li>
+                                <li>Robotics and Automation Center</li>
+                                <li>Advanced CAD/CAM Software Suite</li>
+                                <li>Thermodynamics & Fluid Mechanics Lab</li>
+                            </ul>
+                            <h4 class="text-xl font-bold text-[#2c3e50] mb-4">Star Projects</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                 <div class="bg-slate-100 p-4 rounded-lg"><p class="text-gray-700 font-semibold">Design of an All-Terrain Electric Vehicle</p></div>
+                                 <div class="bg-slate-100 p-4 rounded-lg"><p class="text-gray-700 font-semibold">3D Printed Prosthetic Arm</p></div>
+                            </div>
+                        `
+                    },
+                    ec: { title: 'Electronics & Communication', content: '<p class="text-gray-600">Content for Electronics & Communication coming soon.</p>' },
+                    ce: { title: 'Civil Engineering', content: '<p class="text-gray-600">Content for Civil Engineering coming soon.</p>' }
+                };
+
+                function openModal(deptId) {
+                    const data = departmentData[deptId];
+                    if (!data || !modalTitle || !modalBody) return;
+                    modalTitle.textContent = data.title;
+                    modalBody.innerHTML = data.content;
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        modal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0');
+                    }, 10);
+                }
+
+                function closeModal() {
+                    modal.classList.add('opacity-0');
+                    modal.querySelector('.modal-content').classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => modal.classList.add('hidden'), 300);
+                }
+
+                departmentCards.forEach(card => {
+                    card.addEventListener('click', () => openModal(card.dataset.department));
+                });
+                if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
